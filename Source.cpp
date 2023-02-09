@@ -1,13 +1,31 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    // Création de la fenêtre
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Hello World!");
 
+    // Création du texte
+    sf::Text text;
+    text.setString("Hello World!");
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::Cyan);
+    text.setStyle(sf::Text::Bold);
+
+    // Chargement de la police
+    sf::Font font;
+    if (!font.loadFromFile("path/to/your/font.ttf"))
+    {
+        //handle error
+        std::cout << "Erreur chargement de la police d'écriture" << std::endl;
+    }
+    text.setFont(font);
+    // Boucle principale
     while (window.isOpen())
     {
+        // Gestion des événements
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -15,10 +33,14 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
+        // Effacement de la fenêtre
+        window.clear(sf::Color::Black);
+
+        // Dessin des éléments
+        window.draw(text);
+
+        // Affichage à l'écran
         window.display();
     }
-
     return 0;
 }
